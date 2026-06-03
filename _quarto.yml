@@ -1,2 +1,4 @@
 project:
+  type: website
+  output-dir: _site
   title: "training_spatial"

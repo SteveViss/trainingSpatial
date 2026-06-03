@@ -55,7 +55,7 @@ install.packages(c("sf", "terra", "mapview"))
 
 # Système de référence de coordonnées (CRS) {background-color="#3687f9"}
 
-## CRS — Géographique vs projeté
+## CRS - Géographique vs projeté
 
 :::: {.columns}
 ::: {.column width="50%"}
@@ -76,9 +76,9 @@ install.packages(c("sf", "terra", "mapview"))
 
 ![](img/proj_vs_unproj.png){fig-align="center" width="75%"}
 
-## CRS — En pratique avec `sf`
+## CRS - En pratique avec `sf`
 
-Chaque CRS est identifié par un code **EPSG** — rechercher sur [epsg.io](https://epsg.io/)
+Chaque CRS est identifié par un code **EPSG** - rechercher sur [epsg.io](https://epsg.io/)
 
 ```{r}
 #| label: crs-fonctions
@@ -126,11 +126,11 @@ Illustration de [Allison Horst](https://twitter.com/allison_horst/status/1071456
 
 ![](img/str_sf.png){fig-align="center" width="100%"}
 
-## `sfg` — Géométrie simple (1)
+## `sfg` - Géométrie simple (1)
 
 ![](img/sf1.png){fig-align="center" width="70%"}
 
-## `sfg` — Géométrie simple (2)
+## `sfg` - Géométrie simple (2)
 
 ![](img/sf2.png){fig-align="center" width="70%"}
 
@@ -279,7 +279,7 @@ st_drivers(what = "vector")[1:50, 1]
 
 ## Importer un shapefile ESRI
 
-Côtes mondiales Natural Earth — [télécharger ici](https://naciscdn.org/naturalearth/10m/physical/ne_10m_coastline.zip) (déjà dans `data/ne-coastlines-10m/`)
+Côtes mondiales Natural Earth - [télécharger ici](https://naciscdn.org/naturalearth/10m/physical/ne_10m_coastline.zip) (déjà dans `data/ne-coastlines-10m/`)
 
 ## Fichiers d'un shapefile valide
 
@@ -343,13 +343,16 @@ plot(st_geometry(cropped_coast))
 
 ## Exporter des vecteurs spatiaux
 
-Sauvegarder en shapefile ESRI :
-
 ```{r}
-#| label: export-write
+#| label: export-write-sf
 #| eval: false
-st_write(cropped_coast, dsn = "data/cropped_coast", driver = "ESRI Shapefile")
+st_write(cropped_coast, "data/cropped_coast.gpkg")
+st_write(cropped_coast, "data/cropped_coast.shp")  # ESRI Shapefile
 ```
+
+::: {.callout-tip}
+Préférer **GeoPackage** (`.gpkg`) au Shapefile : un seul fichier, pas de limite de 255 caractères sur les noms de colonnes, supporte plusieurs couches.
+:::
 
 ## Exercice pratique {.practice}
 
@@ -418,6 +421,28 @@ mapview(buf_10K_cities)
 2. Sélectionner toutes les villes de votre province
 3. Sélectionner les 10 villes les plus peuplées de votre province
 
+# Convertir des points en lignes {background-color="#3687f9"}
+
+## Convertir des points en lignes
+
+Relier les villes d'une même province forme une **LINESTRING** par groupe :
+
+```{r}
+#| label: points-to-lines-sf
+#| eval: false
+library(dplyr)
+city_lines_sf <- sf_ca_cities_wgs84 |>
+  arrange(admin, population) |>
+  group_by(admin) |>
+  summarise(do_union = FALSE) |>
+  st_cast("LINESTRING")
+city_lines_sf
+```
+
+::: {.callout-note}
+`st_cast("LINESTRING")` requiert que les points soient **ordonnés** avant le `group_by()`. L'ordre détermine la direction de la ligne.
+:::
+
 # Manipulation des rasters {background-color="#3687f9"}
 
 ## Données spatiales matricielles
@@ -461,7 +486,6 @@ HDF4: Hierarchical Data Format 4
 
 ```{r}
 #| label: raster-load
-#| cache: true
 library(terra)
 library(rnaturalearth)
 ocean_bottom <- rast(
@@ -483,9 +507,9 @@ image(ocean_bottom)
 
 Le package `geodata` remplace `terra::getData()` :
 
-- **`gadm()`** — limites administratives mondiales
-- **`worldclim_country()`** — données climatiques interpolées
-- **`elevation_30s()`** — données d'élévation (~1 km)
+- **`gadm()`** - limites administratives mondiales
+- **`worldclim_country()`** - données climatiques interpolées
+- **`elevation_30s()`** - données d'élévation (~1 km)
 
 ```{r}
 #| label: elevation-load
@@ -560,6 +584,34 @@ alt_qc_nad83 <- project(alt_qc, y = "+proj=lcc +lat_1=49 +lat_2=77
 plot(alt_qc_nad83)
 ```
 
+## Rééchantillonnage raster
+
+Modifier la résolution d'un raster avec `resample()` :
+
+```{r}
+#| label: resample-run
+#| eval: false
+template_coarse <- rast(ext(alt_qc), resolution = 1, crs = crs(alt_qc))
+alt_near     <- resample(alt_qc, template_coarse, method = "near")
+alt_bilinear <- resample(alt_qc, template_coarse, method = "bilinear")
+```
+
+```{r}
+#| label: resample-plot
+#| eval: false
+#| fig-width: 14
+#| fig-height: 5
+#| fig-align: center
+par(mfrow = c(1, 3), mar = c(0, 0, 2, 0))
+plot(alt_qc,       main = "Original",  axes = FALSE)
+plot(alt_near,     main = "Near",      axes = FALSE)
+plot(alt_bilinear, main = "Bilinear",  axes = FALSE)
+```
+
+::: {.callout-note}
+`near` conserve les valeurs discrètes (rasters catégoriels). `bilinear` interpole les valeurs - adapté aux surfaces continues comme l'élévation.
+:::
+
 ## Exercice pratique {.practice}
 
 1. Lire avec `sf` le [CSV des villes canadiennes](data/ca_cities.csv)
@@ -611,6 +663,152 @@ as.data.frame(rs_var1, xy = TRUE)
 - Variance : `var(rs_var1)`
 - Covariance : `cov(rs_var1, rs_var2)`
 - Histogramme : `hist(rs_var1)`
+
+# Flux de travail intégrés {background-color="#3687f9"}
+
+## Extraction raster par lignes
+
+Valeur moyenne de l'élévation le long d'une ligne (ex. transect interprovincial) :
+
+```{r}
+#| label: extract-lines
+#| eval: false
+# city_lines_sf créé dans la section "Convertir des points en lignes"
+lines_elev <- city_lines_sf |>
+  mutate(mean_elev = extract(altCAN, city_lines_sf, fun = mean, na.rm = TRUE)[, 2])
+lines_elev
+```
+
+## Extraction raster par polygones
+
+Valeur moyenne de l'élévation par province :
+
+```{r}
+#| label: extract-polygons
+#| eval: false
+prov_elev <- extract(altCAN, can, fun = mean, na.rm = TRUE)
+can$mean_elev <- prov_elev[, 2]
+plot(can["mean_elev"], main = "Élévation moyenne par province")
+```
+
+## Résumer et construire un tableau d'analyse
+
+Combiner l'extraction avec des statistiques par groupe :
+
+```{r}
+#| label: analysis-table
+#| eval: false
+library(dplyr)
+
+# Extraction raster aux points de villes
+sf_ca_cities_wgs84$elev <- extract(altCAN, sf_ca_cities_wgs84)[, 2]
+
+# Résumé par province
+analysis_table <- sf_ca_cities_wgs84 |>
+  st_drop_geometry() |>
+  group_by(admin) |>
+  summarise(
+    n_cities    = n(),
+    pop_total   = sum(population, na.rm = TRUE),
+    mean_elev   = mean(elev, na.rm = TRUE)
+  ) |>
+  arrange(desc(pop_total))
+
+analysis_table
+```
+
+# Cartographie avancée {background-color="#3687f9"}
+
+## Exploration vs Communication
+
+:::: {.columns}
+::: {.column width="50%"}
+**Exploration rapide**
+
+- `plot()`
+- `mapview()`
+- QA/QC, inspection des données
+:::
+::: {.column width="50%"}
+**Communication**
+
+- `ggplot2`
+- `tmap`
+- Légendes, palettes, mise en page soignée
+:::
+::::
+
+::: {.callout-note icon=false}
+Utilisez les cartes exploratoires pour inspecter rapidement, puis passez à `ggplot2` ou `tmap` pour les cartes destinées à être partagées ou publiées.
+:::
+
+## Cartographie avec `ggplot2`
+
+```{r}
+#| label: map-ggplot2
+#| eval: false
+library(ggplot2)
+
+gg <- ggplot() +
+  geom_spatraster(data = alt_qc) +
+  scale_fill_viridis_c(name = "Élévation (m)", na.value = NA) +
+  geom_sf(data = qc, fill = NA, color = "#355c67", linewidth = 0.5) +
+  geom_sf(data = sf_ca_cities_wgs84, aes(size = population),
+          color = "#c0392b", alpha = 0.7) +
+  coord_sf(expand = FALSE) +
+  theme_minimal() +
+  labs(title = "Élévation et villes du Québec", size = "Population")
+gg
+```
+
+::: {.callout-tip}
+`geom_spatraster()` vient du package `tidyterra` - il permet d'intégrer directement les objets `terra` dans `ggplot2`.
+:::
+
+## Cartographie avec `tmap`
+
+```{r}
+#| label: map-tmap
+#| eval: false
+library(tmap)
+
+tm <- tm_shape(alt_qc) +
+  tm_raster(col.scale = tm_scale_continuous(values = "viridis"),
+            col.legend = tm_legend(title = "Élévation (m)")) +
+  tm_shape(qc) +
+  tm_borders(col = "#355c67") +
+  tm_shape(sf_ca_cities_wgs84) +
+  tm_symbols(fill = "population", size = 0.5,
+             fill.scale = tm_scale_continuous(values = "reds")) +
+  tm_layout(frame = FALSE, legend.outside = TRUE)
+tm
+```
+
+## Exporter des cartes
+
+::: {.panel-tabset}
+##### `ggplot2`
+
+```{r}
+#| label: export-ggplot2
+#| eval: false
+ggsave("outputs/carte_qc.png", plot = gg, width = 10, height = 8, dpi = 300)
+ggsave("outputs/carte_qc.pdf", plot = gg, width = 10, height = 8)
+```
+
+##### `tmap`
+
+```{r}
+#| label: export-tmap
+#| eval: false
+tmap_save(tm, "outputs/carte_qc.png", width = 10, height = 8, dpi = 300)
+
+# Export interactif HTML
+tmap_mode("view")
+tmap_save(tm, "outputs/carte_qc.html")
+tmap_mode("plot")
+```
+:::
 
 # Ressources en ligne {background-color="#3687f9"}
 

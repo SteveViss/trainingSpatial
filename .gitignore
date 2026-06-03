@@ -1,4 +1,5 @@
 /.quarto/
+_site/
 *.html
 index_*
 test_files/*
