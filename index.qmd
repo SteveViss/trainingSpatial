@@ -48,7 +48,11 @@ Cette présentation est disponible à l'adresse [steveviss.github.io/trainingSpa
 ## Installation des packages
 
 ```r
-install.packages(c("sf", "terra", "tmap", "mapview"))
+install.packages(c(
+  "sf", "terra", "tmap", "mapview",
+  "geodata", "rnaturalearth", "tidyterra",
+  "dplyr", "ggplot2"
+))
 ```
 
 # Vue d'ensemble des objets spatiaux {background-color="#001d45"}
