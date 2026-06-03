@@ -324,7 +324,7 @@ mapview::mapview(stations)
 
 ## Exporter des vecteurs spatiaux
 
-Extraire le golfe du Saint-Laurent depuis les côtes mondiales :
+Extraire le golfe du Saint-Laurent depuis le *shapefile* du trait de côtes:
 
 ```{r}
 #| label: export-crop
@@ -515,7 +515,6 @@ ocean_bottom
 
 ```{r}
 #| label: raster-image
-#| output-location: column
 gsl_bbox <- ext(-71.2, -55.1, 45.5, 51.8)
 mapview::mapview(crop(ocean_bottom, gsl_bbox))
 ```
@@ -539,9 +538,6 @@ altCAN
 
 ```{r}
 #| label: elevation-plot
-#| output-location: column
-#| fig-width: 7
-#| fig-height: 5
 plot(altCAN)
 ```
 
@@ -756,6 +752,7 @@ Utilisez les cartes exploratoires pour inspecter rapidement, puis passez à `ggp
 
 ```{r}
 #| label: map-ggplot2
+#| output-location: column
 library(ggplot2)
 library(tidyterra)  # install.packages("tidyterra")
 
@@ -781,6 +778,8 @@ gg
 #| label: map-tmap
 #| output-location: column
 #| message: false
+#| fig-width: 8
+#| fig-height: 7
 library(tmap)
 
 tm_shape(alt_qc, is.master = TRUE) +

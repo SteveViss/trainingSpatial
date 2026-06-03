@@ -33,6 +33,7 @@ jobs:
           install.packages(c("pak"), repos = "https://cloud.r-project.org")
           pak::pak(c(
             "sf", "terra", "geodata", "tmap", "dplyr",
+            "mapview", "ggplot2", "tidyterra",
             "rnaturalearthdata",
             "ropensci/rnaturalearthhires",
             "ropensci/rnaturalearth"
