@@ -42,12 +42,13 @@ Cette présentation est disponible à l'adresse [steveviss.github.io/trainingSpa
 - Réaliser des opérations spatiales courantes (filtrage, reprojection, tampon, découpage)
 - Importer et manipuler des données raster avec `terra`
 - Extraire, découper, reprojeter et empiler des couches matricielles
-- Créer des cartes avec `ggplot2` et `tmap`
+- Créer des cartes interactives avec `mapview`
+- Créer des cartes statiques avec `ggplot2` et `tmap`
 
 ## Installation des packages
 
 ```r
-install.packages(c("sf", "terra", "tmap"))
+install.packages(c("sf", "terra", "tmap", "mapview"))
 ```
 
 # Vue d'ensemble des objets spatiaux {background-color="#001d45"}
@@ -201,7 +202,6 @@ great_cities
 
 ```{r}
 #| label: points-mapview-code
-#| output-location: column
 #| message: false
 mapview::mapview(great_cities)
 ```
@@ -278,7 +278,7 @@ st_drivers(what = "vector")[1:50, 1]
 
 Trait de côtes sur [Natural Earth](https://www.naturalearthdata.com/)
 
-À [télécharger ici](https://naciscdn.org/naturalearth/10m/physical/ne_10m_coastline.zip) (Mettre dans `data/`)
+À [télécharger](https://naciscdn.org/naturalearth/10m/physical/ne_10m_coastline.zip) et regarder le contenu du dossier `ne_10m_coastline`
 
 ## Fichiers d'un shapefile valide
 
@@ -296,7 +296,6 @@ coast <- st_read("data/ne-coastlines-10m")
 
 ```{r}
 #| label: coast-plot
-#| output-location: column
 #| fig-align: center
 par(mar = rep(0, 4))
 plot(st_geometry(coast))
@@ -318,7 +317,6 @@ stations <- st_read("data/camp_station_summary_eng.gdb",
 
 ```{r}
 #| label: camp-mapview
-#| output-location: column
 mapview::mapview(stations)
 ```
 
@@ -387,7 +385,6 @@ mb_cities <- sf_ca_cities_wgs84 |> dplyr::filter(admin == "Manitoba")
 
 ```{r}
 #| label: filter-attributs-map
-#| output-location: column
 mapview::mapview(mb_cities, label = "city")
 ```
 
@@ -419,7 +416,6 @@ Zone tampon de 10 km autour des villes (POINT → POLYGONE) :
 
 ```{r}
 #| label: buffer-cities
-#| output-location: column
 buf_10K_cities <- st_buffer(sf_ca_cities_nad83, 10000)
 mapview::mapview(buf_10K_cities, alpha.regions = 0.3)
 ```
@@ -457,7 +453,6 @@ city_lines_sf
 
 ```{r}
 #| label: points-to-lines-tmap
-#| output-location: column
 mapview::mapview(city_lines_sf)
 ```
 
@@ -516,6 +511,7 @@ ocean_bottom
 ```{r}
 #| label: raster-image
 gsl_bbox <- ext(-71.2, -55.1, 45.5, 51.8)
+mapview::mapviewOptions(legend = FALSE)
 mapview::mapview(crop(ocean_bottom, gsl_bbox))
 ```
 
@@ -753,6 +749,8 @@ Utilisez les cartes exploratoires pour inspecter rapidement, puis passez à `ggp
 ```{r}
 #| label: map-ggplot2
 #| output-location: column
+#| fig-width: 8
+#| fig-height: 7
 library(ggplot2)
 library(tidyterra)  # install.packages("tidyterra")
 
