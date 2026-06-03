@@ -461,8 +461,13 @@ HDF4: Hierarchical Data Format 4
 
 ```{r}
 #| label: raster-load
+#| cache: true
 library(terra)
-ocean_bottom <- rast("data/OB_LR/OB_50M/OB_50M.tif")
+library(rnaturalearth)
+ocean_bottom <- rast(
+  ne_download(scale = 50, type = "OB_50M", category = "raster",
+              destdir = "data/OB_LR", load = FALSE)
+)
 ocean_bottom
 ```
 

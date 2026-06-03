@@ -1,6 +1,6 @@
 /.quarto/
 *.html
 index_*
-index_*
 test_files/*
 .claude
+data/OB_LR/
