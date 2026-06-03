@@ -29,7 +29,7 @@ Cette présentation est disponible à l'adresse [steveviss.github.io/trainingSpa
 
 :::
 ::: {.column width="40%"}
-![](https://insileco.io/workshop_r_spatial/img/main.svg){fig-align="center" width="50%"}
+![](https://insileco.io/workshop_r_spatial/img/main.svg){fig-align="center" width="40%"}
 :::
 ::::
 
@@ -186,14 +186,29 @@ plot(great_cities[, "N"])
 
 ## Vérification visuelle (interactive)
 
+:::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: points-mapview-code
+#| eval: false
+library(tmap)
+tmap_mode("view")
+tm_shape(great_cities) + tm_symbols()
+```
+:::
+::: {.column width="50%"}
 ```{r}
 #| label: points-mapview
+#| echo: false
+#| message: false
 #| out-height: "65%"
 #| out-width: "100%"
 library(tmap)
 tmap_mode("view")
 tm_shape(great_cities) + tm_symbols()
 ```
+:::
+::::
 
 ## Lignes
 
@@ -300,14 +315,27 @@ stations <- st_read("data/camp_station_summary_eng.gdb",
                     layer = "camp_station_summary_eng")
 ```
 
+:::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: camp-mapview-code
+#| eval: false
+tmap_mode("view")
+tm_shape(stations) + tm_symbols()
+```
+:::
+::: {.column width="50%"}
 ```{r}
 #| label: camp-mapview
 #| echo: false
 #| out-height: "50%"
 #| out-width: "100%"
+#| message: false
 tmap_mode("view")
 tm_shape(stations) + tm_symbols()
 ```
+:::
+::::
 
 ## Exporter des vecteurs spatiaux
 
@@ -356,12 +384,33 @@ Sélectionner les villes du Manitoba :
 
 ```{r}
 #| label: filter-attributs
-#| out-height: "75%"
-#| out-width: "100%"
 mb_cities <- subset(sf_ca_cities_wgs84, admin == "Manitoba")
+mb_cities
+```
+
+## Filtrer par attributs
+
+:::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: filter-attributs-map-code
+#| eval: false
 tmap_mode("view")
 tm_shape(mb_cities) + tm_symbols() + tm_text("city")
 ```
+:::
+::: {.column width="50%"}
+```{r}
+#| label: filter-attributs-map
+#| echo: false
+#| out-height: "75%"
+#| out-width: "100%"
+#| message: false
+tmap_mode("view")
+tm_shape(mb_cities) + tm_symbols() + tm_text("city")
+```
+:::
+::::
 
 ## Sélectionner / supprimer des entités
 
@@ -389,14 +438,29 @@ sf_ca_cities_nad83
 
 Zone tampon de 10 km autour des villes (POINT → POLYGONE) :
 
+:::: {.columns}
+::: {.column width="50%"}
 ```{r}
-#| label: buffer-cities
-#| out-width: "100%"
-#| out-height: "55%"
+#| label: buffer-cities-code
+#| eval: false
 buf_10K_cities <- st_buffer(sf_ca_cities_nad83, 10000)
 tmap_mode("view")
 tm_shape(buf_10K_cities) + tm_polygons(alpha = 0.3)
 ```
+:::
+::: {.column width="50%"}
+```{r}
+#| label: buffer-cities
+#| echo: false
+#| out-width: "100%"
+#| out-height: "55%"
+#| message: false
+buf_10K_cities <- st_buffer(sf_ca_cities_nad83, 10000)
+tmap_mode("view")
+tm_shape(buf_10K_cities) + tm_polygons(alpha = 0.3)
+```
+:::
+::::
 
 ## Opérations spatiales avec `sf`
 
@@ -418,7 +482,6 @@ Relier les villes d'une même province forme une **LINESTRING** par groupe :
 
 ```{r}
 #| label: points-to-lines-sf
-#| eval: false
 library(dplyr)
 city_lines_sf <- sf_ca_cities_wgs84 |>
   arrange(admin, population) |>
@@ -427,6 +490,28 @@ city_lines_sf <- sf_ca_cities_wgs84 |>
   st_cast("LINESTRING")
 city_lines_sf
 ```
+
+:::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: points-to-lines-tmap-code
+#| eval: false
+tmap_mode("view")
+tm_shape(city_lines_sf) + tm_lines()
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| label: points-to-lines-tmap
+#| echo: false
+#| message: false
+#| out-height: "65%"
+#| out-width: "100%"
+tmap_mode("view")
+tm_shape(city_lines_sf) + tm_lines()
+```
+:::
+::::
 
 ::: {.callout-note}
 `st_cast("LINESTRING")` requiert que les points soient **ordonnés** avant le `group_by()`. L'ordre détermine la direction de la ligne.
@@ -521,7 +606,7 @@ plot(altCAN)
 
 ```{r}
 #| label: elevation-extract
-sf_ca_cities_wgs84$elev <- extract(altCAN, sf_ca_cities_wgs84)[, 2]
+sf_ca_cities_wgs84$elev <- extract(altCAN, vect(sf_ca_cities_wgs84))[, 2]
 sf_ca_cities_wgs84
 ```
 
@@ -534,23 +619,18 @@ sf_ca_cities_wgs84
 can    <- st_as_sf(geodata::gadm(country = "CAN", level = 1, path = "data"))
 qc     <- subset(can, NAME_1 == "Québec")
 alt_qc <- crop(altCAN, qc)
-alt_mask <- mask(altCAN, qc)
-```
-
-```{r}
-#| label: crop-mask-run
-#| echo: false
-can    <- st_as_sf(geodata::gadm(country = "CAN", level = 1, path = "data"))
-qc     <- subset(can, NAME_1 == "Québec")
-alt_qc <- crop(altCAN, qc)
+alt_mask <- mask(crop(altCAN, qc), qc)
 ```
 
 ```{r}
 #| label: crop-plot
+#| echo: false
 #| fig-align: center
-#| fig-width: 6
+#| fig-width: 12
 #| fig-height: 6
-plot(alt_qc)
+par(mfrow = c(1, 2), mar = c(0, 0, 2, 0))
+plot(alt_qc,   main = "crop()",  axes = FALSE)
+plot(alt_mask, main = "mask()",  axes = FALSE)
 ```
 
 ## Reprojeter un raster
@@ -578,7 +658,6 @@ Modifier la résolution d'un raster avec `resample()` :
 
 ```{r}
 #| label: resample-run
-#| eval: false
 template_coarse <- rast(ext(alt_qc), resolution = 1, crs = crs(alt_qc))
 alt_near     <- resample(alt_qc, template_coarse, method = "near")
 alt_bilinear <- resample(alt_qc, template_coarse, method = "bilinear")
@@ -586,7 +665,7 @@ alt_bilinear <- resample(alt_qc, template_coarse, method = "bilinear")
 
 ```{r}
 #| label: resample-plot
-#| eval: false
+#| echo: false
 #| fig-width: 14
 #| fig-height: 5
 #| fig-align: center
@@ -660,10 +739,10 @@ Valeur moyenne de l'élévation le long d'une ligne (ex. transect interprovincia
 
 ```{r}
 #| label: extract-lines
-#| eval: false
 # city_lines_sf créé dans la section "Convertir des points en lignes"
-lines_elev <- city_lines_sf |>
-  mutate(mean_elev = extract(altCAN, city_lines_sf, fun = mean, na.rm = TRUE)[, 2])
+city_lines_vect <- vect(as(city_lines_sf, "Spatial"))
+elev_lines <- extract(altCAN, city_lines_vect, fun = mean, na.rm = TRUE)
+lines_elev <- city_lines_sf |> mutate(mean_elev = elev_lines[, 2])
 lines_elev
 ```
 
@@ -673,8 +752,7 @@ Valeur moyenne de l'élévation par province :
 
 ```{r}
 #| label: extract-polygons
-#| eval: false
-prov_elev <- extract(altCAN, can, fun = mean, na.rm = TRUE)
+prov_elev <- extract(altCAN, vect(can), fun = mean, na.rm = TRUE)
 can$mean_elev <- prov_elev[, 2]
 plot(can["mean_elev"], main = "Élévation moyenne par province")
 ```
@@ -685,11 +763,10 @@ Combiner l'extraction avec des statistiques par groupe :
 
 ```{r}
 #| label: analysis-table
-#| eval: false
 library(dplyr)
 
 # Extraction raster aux points de villes
-sf_ca_cities_wgs84$elev <- extract(altCAN, sf_ca_cities_wgs84)[, 2]
+sf_ca_cities_wgs84$elev <- extract(altCAN, vect(sf_ca_cities_wgs84))[, 2]
 
 # Résumé par province
 analysis_table <- sf_ca_cities_wgs84 |>
@@ -734,14 +811,14 @@ Utilisez les cartes exploratoires pour inspecter rapidement, puis passez à `ggp
 
 ```{r}
 #| label: map-ggplot2
-#| eval: false
 library(ggplot2)
+library(tidyterra)  # install.packages("tidyterra")
 
 gg <- ggplot() +
   geom_spatraster(data = alt_qc) +
   scale_fill_viridis_c(name = "Élévation (m)", na.value = NA) +
-  geom_sf(data = qc, fill = NA, color = "#355c67", linewidth = 0.5) +
-  geom_sf(data = sf_ca_cities_wgs84, aes(size = population),
+  geom_sf(data = qc, fill = NA, color = "white", linewidth = 0.5) +
+  geom_sf(data = subset(sf_ca_cities_wgs84, admin == "Québec"), aes(size = population),
           color = "#c0392b", alpha = 0.7) +
   coord_sf(expand = FALSE) +
   theme_minimal() +
@@ -755,6 +832,8 @@ gg
 
 ## Cartographie avec `tmap`
 
+:::: {.columns}
+::: {.column width="50%"}
 ```{r}
 #| label: map-tmap
 #| eval: false
@@ -764,13 +843,34 @@ tm <- tm_shape(alt_qc) +
   tm_raster(col.scale = tm_scale_continuous(values = "viridis"),
             col.legend = tm_legend(title = "Élévation (m)")) +
   tm_shape(qc) +
-  tm_borders(col = "#355c67") +
-  tm_shape(sf_ca_cities_wgs84) +
+  tm_borders(col = "white") +
+  tm_shape(subset(sf_ca_cities_wgs84, admin == "Québec")) +
   tm_symbols(fill = "population", size = 0.5,
              fill.scale = tm_scale_continuous(values = "reds")) +
   tm_layout(frame = FALSE, legend.outside = TRUE)
 tm
 ```
+:::
+::: {.column width="50%"}
+```{r}
+#| label: map-tmap-out
+#| echo: false
+#| message: false
+library(tmap)
+
+tm <- tm_shape(alt_qc) +
+  tm_raster(col.scale = tm_scale_continuous(values = "viridis"),
+            col.legend = tm_legend(title = "Élévation (m)")) +
+  tm_shape(qc) +
+  tm_borders(col = "white") +
+  tm_shape(subset(sf_ca_cities_wgs84, admin == "Québec")) +
+  tm_symbols(fill = "population", size = 0.5,
+             fill.scale = tm_scale_continuous(values = "reds")) +
+  tm_layout(frame = FALSE, legend.outside = TRUE)
+tm
+```
+:::
+::::
 
 ## Exporter des cartes
 
