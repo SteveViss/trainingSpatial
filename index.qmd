@@ -68,6 +68,21 @@ install.packages(c("sf", "terra", "tmap"))
 ::: {.column width="50%"}
 **Géographique**
 
+![](img/projection1.png){fig-align="center" width="100%"}
+:::
+::: {.column width="50%"}
+**Projeté**
+
+![](img/projection2.png){fig-align="center" width="100%"}
+:::
+::::
+
+## CRS - Géographique vs projeté
+
+:::: {.columns}
+::: {.column width="50%"}
+**Géographique**
+
 - Coordonnées en **degrés** (lon/lat)
 - Basé sur une sphère ou ellipsoïde
 - Ex. : WGS84 (EPSG **4326**)
@@ -83,9 +98,10 @@ install.packages(c("sf", "terra", "tmap"))
 
 ![](img/proj_vs_unproj.png){fig-align="center" width="75%"}
 
+
 ## CRS - En pratique avec `sf`
 
-Chaque CRS est identifié par un code **EPSG** - rechercher sur [epsg.io](https://epsg.io/)
+Chaque CRS est identifié par un code **EPSG** 
 
 ```{r}
 #| label: crs-fonctions
@@ -93,6 +109,12 @@ Chaque CRS est identifié par un code **EPSG** - rechercher sur [epsg.io](https:
 sf::st_crs(4326)          # inspecter un CRS
 sf::st_transform(obj, 3347)  # reprojeter
 ```
+
+On peut trouver des systèmes de coordonnées: 
+
+1. sur [epsg.io](https://epsg.io/)
+2. sur [spatialreference.org](https://spatialreference.org/)
+3. dans la documentation de `sf` (`?st_crs`)
 
 # Manipulation des vecteurs spatiaux {background-color="#001d45"}
 
@@ -175,24 +197,13 @@ great_cities <- st_sf(attr_table, geom = cities, crs = proj)
 great_cities
 ```
 
-## Vérification visuelle
-
-```{r}
-#| label: points-plot
-#| fig-height: 4
-#| fig-width: 6
-#| fig-align: center
-plot(great_cities[, "N"])
-```
-
 ## Vérification visuelle (interactive)
-
 
 ```{r}
 #| label: points-mapview-code
-library(tmap)
-gc <- tm_shape(great_cities) + tm_symbols()
-gc
+#| output-location: column
+#| message: false
+mapview::mapview(great_cities)
 ```
 
 ## Lignes
@@ -205,7 +216,7 @@ gc
 line <- st_linestring(rbind(c(0, 0), c(1, 1), c(2, 1)))
 class(line)
 
-plot(line, col = "red", lwd = 2)
+plot(line, col = "darkblue", lwd = 2)
 plot(st_cast(line, "MULTIPOINT"), pch = 19, add = TRUE)
 ```
 
@@ -220,7 +231,7 @@ outer <- matrix(c(0,0,10,0,10,10,0,10,0,0), ncol = 2, byrow = TRUE)
 hole1 <- matrix(c(1,1,1,2,2,2,2,1,1,1),    ncol = 2, byrow = TRUE)
 hole2 <- matrix(c(5,5,5,6,6,6,6,5,5,5),    ncol = 2, byrow = TRUE)
 poly  <- st_polygon(list(outer, hole1, hole2))
-plot(poly, col = "red")
+plot(poly, col = "darkblue")
 ```
 
 C'est pourquoi on importe généralement les lignes et polygones depuis des shapefiles, et les points depuis des CSV.
@@ -265,7 +276,9 @@ st_drivers(what = "vector")[1:50, 1]
 
 ## Importer un shapefile ESRI
 
-Côtes mondiales Natural Earth - [télécharger ici](https://naciscdn.org/naturalearth/10m/physical/ne_10m_coastline.zip) (déjà dans `data/ne-coastlines-10m/`)
+Trait de côtes sur [Natural Earth](https://www.naturalearthdata.com/)
+
+À [télécharger ici](https://naciscdn.org/naturalearth/10m/physical/ne_10m_coastline.zip) (Mettre dans `data/`)
 
 ## Fichiers d'un shapefile valide
 
@@ -279,11 +292,12 @@ Côtes mondiales Natural Earth - [télécharger ici](https://naciscdn.org/natura
 coast <- st_read("data/ne-coastlines-10m")
 ```
 
+## Vérification visuelle 
+
 ```{r}
 #| label: coast-plot
+#| output-location: column
 #| fig-align: center
-#| fig-height: 4
-#| fig-width: 6
 par(mar = rep(0, 4))
 plot(st_geometry(coast))
 ```
@@ -300,27 +314,13 @@ stations <- st_read("data/camp_station_summary_eng.gdb",
                     layer = "camp_station_summary_eng")
 ```
 
-:::: {.columns}
-::: {.column width="50%"}
-```{r}
-#| label: camp-mapview-code
-#| eval: false
-tmap_mode("view")
-tm_shape(stations) + tm_symbols()
-```
-:::
-::: {.column width="50%"}
+## Vérification visuelle 
+
 ```{r}
 #| label: camp-mapview
-#| echo: false
-#| out-height: "50%"
-#| out-width: "100%"
-#| message: false
-tmap_mode("view")
-tm_shape(stations) + tm_symbols()
+#| output-location: column
+mapview::mapview(stations)
 ```
-:::
-::::
 
 ## Exporter des vecteurs spatiaux
 
@@ -369,33 +369,27 @@ Sélectionner les villes du Manitoba :
 
 ```{r}
 #| label: filter-attributs
+#| output: column
 mb_cities <- subset(sf_ca_cities_wgs84, admin == "Manitoba")
 mb_cities
 ```
 
 ## Filtrer par attributs
 
-:::: {.columns}
-::: {.column width="50%"}
+Ou avec `dplyr` :
+
 ```{r}
-#| label: filter-attributs-map-code
-#| eval: false
-tmap_mode("view")
-tm_shape(mb_cities) + tm_symbols() + tm_text("city")
+#| label: filter-attributs-dplyr
+mb_cities <- sf_ca_cities_wgs84 |> dplyr::filter(admin == "Manitoba")
 ```
-:::
-::: {.column width="50%"}
+
+## Filtrer par attributs
+
 ```{r}
 #| label: filter-attributs-map
-#| echo: false
-#| out-height: "75%"
-#| out-width: "100%"
-#| message: false
-tmap_mode("view")
-tm_shape(mb_cities) + tm_symbols() + tm_text("city")
+#| output-location: column
+mapview::mapview(mb_cities, label = "city")
 ```
-:::
-::::
 
 ## Sélectionner / supprimer des entités
 
@@ -423,29 +417,12 @@ sf_ca_cities_nad83
 
 Zone tampon de 10 km autour des villes (POINT → POLYGONE) :
 
-:::: {.columns}
-::: {.column width="50%"}
-```{r}
-#| label: buffer-cities-code
-#| eval: false
-buf_10K_cities <- st_buffer(sf_ca_cities_nad83, 10000)
-tmap_mode("view")
-tm_shape(buf_10K_cities) + tm_polygons(alpha = 0.3)
-```
-:::
-::: {.column width="50%"}
 ```{r}
 #| label: buffer-cities
-#| echo: false
-#| out-width: "100%"
-#| out-height: "55%"
-#| message: false
+#| output-location: column
 buf_10K_cities <- st_buffer(sf_ca_cities_nad83, 10000)
-tmap_mode("view")
-tm_shape(buf_10K_cities) + tm_polygons(alpha = 0.3)
+mapview::mapview(buf_10K_cities, alpha.regions = 0.3)
 ```
-:::
-::::
 
 ## Opérations spatiales avec `sf`
 
@@ -476,27 +453,13 @@ city_lines_sf <- sf_ca_cities_wgs84 |>
 city_lines_sf
 ```
 
-:::: {.columns}
-::: {.column width="50%"}
-```{r}
-#| label: points-to-lines-tmap-code
-#| eval: false
-tmap_mode("view")
-tm_shape(city_lines_sf) + tm_lines()
-```
-:::
-::: {.column width="50%"}
+## Convertir des points en lignes
+
 ```{r}
 #| label: points-to-lines-tmap
-#| echo: false
-#| message: false
-#| out-height: "65%"
-#| out-width: "100%"
-tmap_mode("view")
-tm_shape(city_lines_sf) + tm_lines()
+#| output-location: column
+mapview::mapview(city_lines_sf)
 ```
-:::
-::::
 
 ::: {.callout-note}
 `st_cast("LINESTRING")` requiert que les points soient **ordonnés** avant le `group_by()`. L'ordre détermine la direction de la ligne.
@@ -524,13 +487,7 @@ GTiff: GeoTIFF
 XYZ: ASCII Gridded XYZ
 ```
 
-*Images*
-```
-PNG: Portable Network Graphics
-JPEG: JPEG JFIF
-```
-
-*Multibandes (satellite)*
+*Multibandes / Multicouches (satellite)*
 ```
 netCDF: Network Common Data Format
 HDF4: Hierarchical Data Format 4
@@ -554,12 +511,13 @@ ocean_bottom <- rast(
 ocean_bottom
 ```
 
+## Charger un raster depuis un fichier
+
 ```{r}
 #| label: raster-image
-#| fig-height: 8
-#| fig-width: 12
-#| fig-align: center
-image(ocean_bottom)
+#| output-location: column
+gsl_bbox <- ext(-71.2, -55.1, 45.5, 51.8)
+mapview::mapview(crop(ocean_bottom, gsl_bbox))
 ```
 
 ## Récupérer des données libres avec `geodata`
@@ -581,9 +539,9 @@ altCAN
 
 ```{r}
 #| label: elevation-plot
-#| fig-width: 12
-#| fig-height: 7
-#| fig-align: center
+#| output-location: column
+#| fig-width: 7
+#| fig-height: 5
 plot(altCAN)
 ```
 
@@ -724,7 +682,6 @@ Valeur moyenne de l'élévation le long d'une ligne (ex. transect interprovincia
 
 ```{r}
 #| label: extract-lines
-#| eval: false
 # city_lines_sf créé dans la section "Convertir des points en lignes"
 city_lines_vect <- vect(as(city_lines_sf, "Spatial"))
 elev_lines <- extract(altCAN, city_lines_vect, fun = mean, na.rm = TRUE)
@@ -741,7 +698,7 @@ Valeur moyenne de l'élévation par province :
 #| eval: false
 prov_elev <- extract(altCAN, vect(can), fun = mean, na.rm = TRUE)
 can$mean_elev <- prov_elev[, 2]
-plot(can["mean_elev"], main = "Élévation moyenne par province")
+mapview::mapview(can, zcol = "mean_elev")
 ```
 
 ## Résumer et construire un tableau d'analyse
@@ -777,8 +734,9 @@ analysis_table
 ::: {.column width="50%"}
 **Exploration rapide**
 
-- `plot()`
-- `tmap` (mode interactif)
+- `plot()` basique
+- `tmap` (interactif)
+- `mapview` (interactif)
 - QA/QC, inspection des données
 :::
 ::: {.column width="50%"}
@@ -819,33 +777,13 @@ gg
 
 ## Cartographie avec `tmap`
 
-:::: {.columns}
-::: {.column width="50%"}
 ```{r}
 #| label: map-tmap
-#| eval: false
-library(tmap)
-
-tm <- tm_shape(alt_qc, is.master = TRUE) +
-  tm_raster(col.scale = tm_scale_continuous(values = "viridis"),
-            col.legend = tm_legend(title = "Élévation (m)")) +
-  tm_shape(qc) +
-  tm_borders(col = "white") +
-  tm_shape(subset(sf_ca_cities_wgs84, admin == "Québec")) +
-  tm_symbols(fill = "population", size = 0.5,
-             fill.scale = tm_scale_continuous(values = "reds")) +
-  tm_layout(frame = FALSE, legend.outside = TRUE)
-tm
-```
-:::
-::: {.column width="50%"}
-```{r}
-#| label: map-tmap-out
-#| echo: false
+#| output-location: column
 #| message: false
 library(tmap)
 
-tm <- tm_shape(alt_qc, is.master = TRUE) +
+tm_shape(alt_qc, is.master = TRUE) +
   tm_raster(col.scale = tm_scale_continuous(values = "viridis"),
             col.legend = tm_legend(title = "Élévation (m)")) +
   tm_shape(qc) +
@@ -854,10 +792,7 @@ tm <- tm_shape(alt_qc, is.master = TRUE) +
   tm_symbols(fill = "population", size = 0.5,
              fill.scale = tm_scale_continuous(values = "reds")) +
   tm_layout(frame = FALSE, legend.outside = TRUE)
-tm
 ```
-:::
-::::
 
 ## Exporter des cartes
 
