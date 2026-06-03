@@ -4,7 +4,6 @@
 .reveal h1, h2 {
     font-weight: bold;
     font-family: 'Cabin', sans-serif;
-    color: #3687f9 !important;
 }
 
 .reveal h3,
@@ -13,7 +12,6 @@
 .reveal h6 {
     font-family: 'Cabin', sans-serif;
     font-weight: 300;
-    color: #a8c5ed;
 }
 
 .reveal .slide figure>figcaption,

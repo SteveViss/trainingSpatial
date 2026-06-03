@@ -3,11 +3,10 @@ title: Manipuler des données spatiales avec R
 subtitle: Données vectorielles (sf) et matricielles (terra)
 format:
   revealjs:
-    embed-resources: false
     logo: img/logo.png
     theme: default
     css: style.css
-    highlight-style: dracula
+    highlight-style: github
     slide-number: true
 author:
   - name: Steve Vissault
@@ -32,7 +31,7 @@ execute:
 ## Installation des packages
 
 ```r
-install.packages(c("sf", "terra", "mapview"))
+install.packages(c("sf", "terra", "tmap"))
 ```
 
 ## Au programme
@@ -90,27 +89,6 @@ sf::st_transform(obj, 3347)  # reprojeter
 # Manipulation des vecteurs spatiaux {background-color="#3687f9"}
 
 Points, Lignes & Polygones
-
-## Packages R pour les vecteurs spatiaux
-
-- `sp` : classes et méthodes pour les données spatiales (ancien)
-- `maptools` & `rgeos` : fonctions de manipulation (ancien)
-- `sf` : Simple Features pour R, conforme au standard [OGC](https://www.opengeospatial.org/)
-
-. . .
-
-Dans ce cours, nous utilisons principalement `sf`.
-
-## Pourquoi `sf` ?
-
-Pourquoi utiliser `sf` plutôt que `sp` ?
-
-1. Standard formel ISO 19125-1:2004 décrivant les objets géographiques
-2. Successeur de `sp`
-3. `sf` intègre les fonctionnalités de 3 packages en un seul :
-   - `sp` pour le système de classes
-   - `rgdal` pour la lecture/écriture des données
-   - `rgeos` pour les opérations spatiales (GEOS)
 
 ## Pourquoi `sf` ?
 
@@ -205,8 +183,9 @@ plot(great_cities[, "N"])
 #| label: points-mapview
 #| out-height: "65%"
 #| out-width: "100%"
-library(mapview)
-mapview(great_cities, zoom = 1)
+library(tmap)
+tmap_mode("view")
+tm_shape(great_cities) + tm_symbols()
 ```
 
 ## Lignes
@@ -319,7 +298,8 @@ stations <- st_read("data/camp_station_summary_eng.gdb",
 #| echo: false
 #| out-height: "50%"
 #| out-width: "100%"
-mapview(stations)
+tmap_mode("view")
+tm_shape(stations) + tm_symbols()
 ```
 
 ## Exporter des vecteurs spatiaux
@@ -372,7 +352,8 @@ Sélectionner les villes du Manitoba :
 #| out-height: "75%"
 #| out-width: "100%"
 mb_cities <- subset(sf_ca_cities_wgs84, admin == "Manitoba")
-mapview(mb_cities)
+tmap_mode("view")
+tm_shape(mb_cities) + tm_symbols() + tm_text("city")
 ```
 
 ## Sélectionner / supprimer des entités
@@ -406,7 +387,8 @@ Zone tampon de 10 km autour des villes (POINT → POLYGONE) :
 #| out-width: "100%"
 #| out-height: "55%"
 buf_10K_cities <- st_buffer(sf_ca_cities_nad83, 10000)
-mapview(buf_10K_cities)
+tmap_mode("view")
+tm_shape(buf_10K_cities) + tm_polygons(alpha = 0.3)
 ```
 
 ## Opérations spatiales avec `sf`
@@ -418,8 +400,8 @@ mapview(buf_10K_cities)
 ## Exercice pratique {.practice}
 
 1. Télécharger et lire avec `sf` le [CSV des villes canadiennes](data/ca_cities.csv)
-2. Sélectionner toutes les villes de votre province
-3. Sélectionner les 10 villes les plus peuplées de votre province
+2. Sélectionner toutes les villes du Québec
+3. Sélectionner les 10 villes les plus peuplées du Québec
 
 # Convertir des points en lignes {background-color="#3687f9"}
 
@@ -532,8 +514,8 @@ plot(altCAN)
 
 ```{r}
 #| label: elevation-extract
-sf_ca_cities_wgs84$elev <- extract(altCAN, sf_ca_cities_wgs84)
-sf_ca_cities_wgs84$elev
+sf_ca_cities_wgs84$elev <- extract(altCAN, sf_ca_cities_wgs84)[, 2]
+sf_ca_cities_wgs84
 ```
 
 ## Découper et masquer un raster
@@ -542,7 +524,6 @@ sf_ca_cities_wgs84$elev
 
 ```{r}
 #| label: crop-mask-show
-#| eval: false
 can    <- st_as_sf(geodata::gadm(country = "CAN", level = 1, path = "data"))
 qc     <- subset(can, NAME_1 == "Québec")
 alt_qc <- crop(altCAN, qc)
@@ -726,7 +707,7 @@ analysis_table
 **Exploration rapide**
 
 - `plot()`
-- `mapview()`
+- `tmap` (mode interactif)
 - QA/QC, inspection des données
 :::
 ::: {.column width="50%"}
@@ -832,7 +813,7 @@ tmap_mode("plot")
 - [Geocomputation with R](https://geocompr.robinlovelace.net/adv-map.html)
 - [choropleth](https://cengel.github.io/rspatial/4_Mapping.nb.html)
 - [leaflet](https://rstudio.github.io/leaflet/)
-- [Mapview](https://r-spatial.github.io/mapview/index.html)
+- [tmap](https://r-tmap.github.io/tmap/)
 - [tmap](https://r-tmap.github.io/tmap/)
 
 ## Données libres (3/3)
