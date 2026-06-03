@@ -34,15 +34,7 @@ execute:
 install.packages(c("sf", "terra", "tmap"))
 ```
 
-## Au programme
-
-1. Vue d'ensemble des objets spatiaux
-2. Manipulation des vecteurs spatiaux (POINT, LIGNE, POLYGONE)
-3. Opérations spatiales sur les vecteurs
-4. Manipulation des rasters
-5. Opérations spatiales sur les rasters
-
-# Vue d'ensemble des objets spatiaux {background-color="#3687f9"}
+# Vue d'ensemble des objets spatiaux {background-color="#001d45"}
 
 ## Vecteurs spatiaux
 
@@ -52,7 +44,7 @@ install.packages(c("sf", "terra", "tmap"))
 
 ![](img/raster.png){fig-align="center" width="100%"}
 
-# Système de référence de coordonnées (CRS) {background-color="#3687f9"}
+# Système de référence de coordonnées (CRS) {background-color="#001d45"}
 
 ## CRS - Géographique vs projeté
 
@@ -86,7 +78,7 @@ sf::st_crs(4326)          # inspecter un CRS
 sf::st_transform(obj, 3347)  # reprojeter
 ```
 
-# Manipulation des vecteurs spatiaux {background-color="#3687f9"}
+# Manipulation des vecteurs spatiaux {background-color="#001d45"}
 
 Points, Lignes & Polygones
 
@@ -112,7 +104,7 @@ Illustration de [Allison Horst](https://twitter.com/allison_horst/status/1071456
 
 ![](img/sf2.png){fig-align="center" width="70%"}
 
-# Créer des objets spatiaux {background-color="#3687f9"}
+# Créer des objets spatiaux {background-color="#001d45"}
 
 ## Points
 
@@ -218,7 +210,7 @@ plot(poly, col = "red")
 
 C'est pourquoi on importe généralement les lignes et polygones depuis des shapefiles, et les points depuis des CSV.
 
-# Importer et exporter des objets spatiaux {background-color="#3687f9"}
+# Importer et exporter des objets spatiaux {background-color="#001d45"}
 
 ## Importer des points depuis un CSV
 
@@ -341,7 +333,7 @@ Préférer **GeoPackage** (`.gpkg`) au Shapefile : un seul fichier, pas de limit
 
 Si vous le souhaitez, essayez avec vos propres données ou d'autres shapefiles de <https://www.naturalearthdata.com/>
 
-# Manipuler des objets spatiaux avec `sf` {background-color="#3687f9"}
+# Manipuler des objets spatiaux avec `sf` {background-color="#001d45"}
 
 ## Filtrer par attributs
 
@@ -403,7 +395,7 @@ tm_shape(buf_10K_cities) + tm_polygons(alpha = 0.3)
 2. Sélectionner toutes les villes du Québec
 3. Sélectionner les 10 villes les plus peuplées du Québec
 
-# Convertir des points en lignes {background-color="#3687f9"}
+# Convertir des points en lignes {background-color="#001d45"}
 
 ## Convertir des points en lignes
 
@@ -425,7 +417,7 @@ city_lines_sf
 `st_cast("LINESTRING")` requiert que les points soient **ordonnés** avant le `group_by()`. L'ordre détermine la direction de la ligne.
 :::
 
-# Manipulation des rasters {background-color="#3687f9"}
+# Manipulation des rasters {background-color="#001d45"}
 
 ## Données spatiales matricielles
 
@@ -601,7 +593,7 @@ plot(alt_bilinear, main = "Bilinear",  axes = FALSE)
 4. Créer une zone tampon de 10 km autour de chaque ville
 5. Découper le raster avec ces tampons et calculer la moyenne par tampon
 
-# Empiler des rasters {background-color="#3687f9"}
+# Empiler des rasters {background-color="#001d45"}
 
 ## Stacking
 
@@ -645,7 +637,7 @@ as.data.frame(rs_var1, xy = TRUE)
 - Covariance : `cov(rs_var1, rs_var2)`
 - Histogramme : `hist(rs_var1)`
 
-# Flux de travail intégrés {background-color="#3687f9"}
+# Flux de travail intégrés {background-color="#001d45"}
 
 ## Extraction raster par lignes
 
@@ -698,7 +690,7 @@ analysis_table <- sf_ca_cities_wgs84 |>
 analysis_table
 ```
 
-# Cartographie avancée {background-color="#3687f9"}
+# Cartographie avancée {background-color="#001d45"}
 
 ## Exploration vs Communication
 
@@ -791,7 +783,7 @@ tmap_mode("plot")
 ```
 :::
 
-# Ressources en ligne {background-color="#3687f9"}
+# Ressources en ligne {background-color="#001d45"}
 
 ## Tutoriels (1/3)
 

@@ -44,6 +44,7 @@ jobs:
       - name: Download cached data
         run: |
           mkdir -p data/elevation
+          mkdir -p data/OB_LR
           wget -q -O data/elevation/CAN_elv_msk.zip \
             https://geodata.ucdavis.edu/geodata/elv/CAN_elv_msk.zip
           unzip -o -q data/elevation/CAN_elv_msk.zip -d data/elevation/
