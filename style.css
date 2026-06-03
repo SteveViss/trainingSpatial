@@ -42,3 +42,10 @@
 .reveal .slide-logo {
     max-height: 6rem !important;
 }
+
+/* Titres en blanc sur les slides à fond coloré */
+.reveal .slide[data-background-color] h1,
+.reveal .slide[data-background-color] h2,
+.reveal .slide[data-background-color] h3 {
+    color: #ffffff !important;
+}
