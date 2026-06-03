@@ -8,6 +8,7 @@ format:
     css: style.css
     highlight-style: github
     slide-number: true
+    embed-resources: true
 author:
   - name: Steve Vissault
     orcid: 0000-0002-0866-4376
@@ -186,29 +187,13 @@ plot(great_cities[, "N"])
 
 ## Vérification visuelle (interactive)
 
-:::: {.columns}
-::: {.column width="50%"}
+
 ```{r}
 #| label: points-mapview-code
-#| eval: false
 library(tmap)
-tmap_mode("view")
-tm_shape(great_cities) + tm_symbols()
+gc <- tm_shape(great_cities) + tm_symbols()
+gc
 ```
-:::
-::: {.column width="50%"}
-```{r}
-#| label: points-mapview
-#| echo: false
-#| message: false
-#| out-height: "65%"
-#| out-width: "100%"
-library(tmap)
-tmap_mode("view")
-tm_shape(great_cities) + tm_symbols()
-```
-:::
-::::
 
 ## Lignes
 
@@ -739,6 +724,7 @@ Valeur moyenne de l'élévation le long d'une ligne (ex. transect interprovincia
 
 ```{r}
 #| label: extract-lines
+#| eval: false
 # city_lines_sf créé dans la section "Convertir des points en lignes"
 city_lines_vect <- vect(as(city_lines_sf, "Spatial"))
 elev_lines <- extract(altCAN, city_lines_vect, fun = mean, na.rm = TRUE)
@@ -752,6 +738,7 @@ Valeur moyenne de l'élévation par province :
 
 ```{r}
 #| label: extract-polygons
+#| eval: false
 prov_elev <- extract(altCAN, vect(can), fun = mean, na.rm = TRUE)
 can$mean_elev <- prov_elev[, 2]
 plot(can["mean_elev"], main = "Élévation moyenne par province")
@@ -839,7 +826,7 @@ gg
 #| eval: false
 library(tmap)
 
-tm <- tm_shape(alt_qc) +
+tm <- tm_shape(alt_qc, is.master = TRUE) +
   tm_raster(col.scale = tm_scale_continuous(values = "viridis"),
             col.legend = tm_legend(title = "Élévation (m)")) +
   tm_shape(qc) +
@@ -858,7 +845,7 @@ tm
 #| message: false
 library(tmap)
 
-tm <- tm_shape(alt_qc) +
+tm <- tm_shape(alt_qc, is.master = TRUE) +
   tm_raster(col.scale = tm_scale_continuous(values = "viridis"),
             col.legend = tm_legend(title = "Élévation (m)")) +
   tm_shape(qc) +
