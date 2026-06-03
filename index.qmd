@@ -19,6 +19,20 @@ execute:
   echo: true
 ---
 
+## À propos de ce cours
+
+:::: {.columns}
+::: {.column width="60%"}
+Ce cours contient du matériel pédagogique développé par [inSileco](https://www.insileco.io/) dans le cadre de l'atelier **R in Space / R et espace**.
+
+Cette présentation est disponible à l'adresse [steveviss.github.io/trainingSpatial](https://steveviss.github.io/trainingSpatial).
+
+:::
+::: {.column width="40%"}
+![](https://insileco.io/workshop_r_spatial/img/main.svg){fig-align="center" width="50%"}
+:::
+::::
+
 ## Objectifs de la formation
 
 À la fin de cette formation, vous serez en mesure de :
@@ -27,6 +41,7 @@ execute:
 - Réaliser des opérations spatiales courantes (filtrage, reprojection, tampon, découpage)
 - Importer et manipuler des données raster avec `terra`
 - Extraire, découper, reprojeter et empiler des couches matricielles
+- Créer des cartes avec `ggplot2` et `tmap`
 
 ## Installation des packages
 
@@ -44,13 +59,13 @@ install.packages(c("sf", "terra", "tmap"))
 
 ![](img/raster.png){fig-align="center" width="100%"}
 
-# Système de référence de coordonnées (CRS) {background-color="#001d45"}
+# Système de référence des coordonnées (CRS) {background-color="#001d45"}
 
 ## CRS - Géographique vs projeté
 
 :::: {.columns}
 ::: {.column width="50%"}
-**Géographique (non projeté)**
+**Géographique**
 
 - Coordonnées en **degrés** (lon/lat)
 - Basé sur une sphère ou ellipsoïde
