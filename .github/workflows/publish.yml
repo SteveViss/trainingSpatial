@@ -46,7 +46,7 @@ jobs:
           mkdir -p data/elevation
           wget -q -O data/elevation/CAN_elv_msk.zip \
             https://geodata.ucdavis.edu/geodata/elv/CAN_elv_msk.zip
-          unzip -q data/elevation/CAN_elv_msk.zip -d data/elevation/
+          unzip -o -q data/elevation/CAN_elv_msk.zip -d data/elevation/
 
       - name: Build presentation
         run: quarto render index.qmd
