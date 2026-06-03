@@ -432,7 +432,7 @@ mapview::mapview(buf_10K_cities, alpha.regions = 0.3)
 
 ## Exercice pratique {.practice}
 
-1. Télécharger et lire avec `sf` le [CSV des villes canadiennes](data/ca_cities.csv)
+1. Télécharger et lire avec `sf` le [CSV des villes canadiennes](https://raw.githubusercontent.com/SteveViss/trainingSpatial/refs/heads/main/data/ca_cities.csv)
 2. Sélectionner toutes les villes du Québec
 3. Sélectionner les 10 villes les plus peuplées du Québec
 
