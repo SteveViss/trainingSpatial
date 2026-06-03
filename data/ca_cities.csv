@@ -1,0 +1,256 @@
+"city","admin","population","lng","lat"
+"Selkirk","Manitoba",9986,-96.883322,50.150026
+"Berens River","Manitoba",892,-97.033313,52.366557
+"Pukatawagan","Manitoba",431,-101.316617,55.733276
+"Gimli","Manitoba",2623,-96.999981,50.633303
+"Island Lake","Manitoba",10,-94.766578,53.966588
+"Melville","Saskatchewan",4279,-102.799989,50.933311
+"Weyburn","Saskatchewan",9362,-103.850003,49.666567
+"La Ronge","Saskatchewan",3783,-105.300017,55.100008
+"Stony Rapids","Saskatchewan",152,-105.833266,59.266575
+"Camrose","Alberta",15808,-112.816639,53.016698
+"Hinton","Alberta",10265,-117.58335,53.399982
+"Vegreville","Alberta",5813,-112.049967,53.499976
+"Stettler","Alberta",5494,-112.683288,52.332967
+"Lac La Biche","Alberta",2986,-111.964701,54.77194
+"Wetaskiwin","Alberta",11823,-113.383297,52.966572
+"Meander River","Alberta",200,-117.682982,59.033282
+"Creston","British Columbia",4816,-116.516697,49.09996
+"Cranbrook","British Columbia",18610,-115.766665,49.516679
+"Terrace","British Columbia",19443,-128.583325,54.499993
+"Chilliwack","British Columbia",51942,-121.949983,49.166649
+"Hall Beach","Nunavut",654,-81.236083,68.767467
+"Lutselke","Northwest Territories",102,-110.733329,62.400053
+"Hay River","Northwest Territories",3900,-115.700003,60.849993
+"Doline","Northwest Territories",525,-123.416664,65.183346
+"Paulatuk","Northwest Territories",294,-123.983321,69.383322
+"Tsiigehtchic","Northwest Territories",175,-133.749986,67.433286
+"Owen Sound","Ontario",22625,-80.849985,44.566645
+"Orillia","Ontario",37483,-79.416662,44.599977
+"Kapuskasing","Ontario",9240,-82.433325,49.416685
+"Thessalon","Ontario",1464,-83.550001,46.249979
+"Geraldton","Ontario",1290,-86.96664,49.716641
+"Belleville","Ontario",43990,-77.383349,44.16667
+"Sarnia","Ontario",144172,-82.399968,42.96664
+"Peterborough","Ontario",83627,-78.333265,44.299969
+"Oshawa","Ontario",450963,-78.849978,43.879995
+"London","Ontario",346765,-81.249987,42.969999
+"Kitchener","Ontario",417001,-80.500007,43.449995
+"New Liskeard","Ontario",5203,-79.666647,47.500006
+"Brockville","Ontario",26458,-75.695313,44.58928
+"Big Beaver House","Ontario",10,-89.883284,52.949984
+"Port-Menier","Québec",263,-64.347995,49.822578
+"Rivière-du-Loup","Québec",16403,-69.533312,47.833294
+"Drummondville","Québec",59489,-72.483364,45.883335
+"Sherbrooke","Québec",139652,-71.899989,45.400005
+"Cap-Chat","Québec",1484,-66.683305,49.09996
+"Baie-Comeau","Québec",10435,-68.157995,49.222666
+"Natashquan","Québec",722,-61.810656,50.191341
+"Eastmain","Québec",335,-78.516691,52.233335
+"Schefferville","Québec",471,-66.816656,54.8
+"Salluit","Québec",106,-75.659501,62.182599
+"Amos","Québec",10516,-78.116664,48.566634
+"Joliette","Québec",45361,-73.433306,46.033326
+"St.-Jerome","Québec",78439,-73.99999,45.76665
+"St-Augustin","Québec",3961,-58.646999,51.24231
+"Rouyn-Noranda","Québec",24602,-79.033249,48.250012
+"La Sarre","Québec",7206,-79.200034,48.800005
+"New Glasgow","Nova Scotia",20322,-62.633319,45.583276
+"Liverpool","Nova Scotia",4331,-64.720014,44.039959
+"Amherst","Nova Scotia",9336,-64.216582,45.816569
+"Baddeck","Nova Scotia",852,-60.753977,46.099988
+"Deer Lake","Newfoundland and Labrador",4163,-57.426919,49.1744
+"La Scie","Newfoundland and Labrador",817,-55.583,49.967013
+"Hopedale","Newfoundland and Labrador",442,-60.216671,55.44996
+"Happy Valley - Goose Bay","Newfoundland and Labrador",7572,-60.299999,53.299988
+"Port Hope Simpson","Newfoundland and Labrador",197,-56.300011,52.533291
+"Tofino","British Columbia",1655,-125.862125,49.098616
+"Steinbach","Manitoba",9729,-96.683308,49.517093
+"Nelson House","Manitoba",2500,-98.850023,55.800456
+"Shamattawa","Manitoba",870,-92.083279,55.850375
+"Oxford House","Manitoba",184,-95.266599,54.950404
+"Yorkton","Saskatchewan",15172,-102.466547,51.217066
+"Swift Current","Saskatchewan",14906,-107.766611,50.283738
+"Biggar","Saskatchewan",2192,-107.98329,52.0504
+"Kindersley","Saskatchewan",4383,-109.133298,51.466974
+"Meadow Lake","Saskatchewan",5882,-108.434736,54.130118
+"Hudson Bay","Saskatchewan",2157,-102.383296,52.850429
+"Lethbridge","Alberta",70617,-112.833278,49.700492
+"Brooks","Alberta",14163,-111.900002,50.567054
+"Lake Louise","Alberta",1248,-116.183281,51.433694
+"Athabasca","Alberta",2539,-113.266585,54.717034
+"Fort Chipewyan","Alberta",3222,-111.149996,58.717099
+"Bella Bella","British Columbia",1400,-128.117281,52.148405
+"Sandspit","British Columbia",538,-131.833282,53.240405
+"Campbell River","British Columbia",33430,-125.249988,50.017088
+"Port Hardy","British Columbia",2295,-127.49998,50.717071
+"Nanaimo","British Columbia",84905,-123.934291,49.14602
+"Quesnel","British Columbia",13788,-122.483284,52.983677
+"Abbotsford","British Columbia",151683,-122.299987,49.050377
+"Dawson Creek","British Columbia",10802,-120.233266,55.766969
+"Penticton","British Columbia",37721,-119.58328,49.500375
+"Nelson","British Columbia",11779,-117.283291,49.483658
+"Lillooet","British Columbia",2893,-121.933266,50.683714
+"Powell River","British Columbia",12779,-124.549979,49.883711
+"Revelstoke","British Columbia",7668,-118.18334,51.000465
+"Burns Lake","British Columbia",2635,-125.766598,54.217012
+"Dease Lake","British Columbia",303,-130.033288,58.450346
+"Coral Harbour","Nunavut",834,-83.176587,64.15377
+"Baker Lake","Nunavut",1584,-96.016656,64.31699
+"Norman Wells","Northwest Territories",1027,-126.849968,65.283727
+"Fort McPherson","Northwest Territories",1069,-134.894981,67.491525
+"Burwash Landing","Yukon",73,-139.000002,61.350375
+"Orangeville","Ontario",32640,-80.08334,43.917073
+"Little Current","Ontario",1595,-81.93333,45.967025
+"Chapleau","Ontario",2663,-83.40001,47.833707
+"Wawa","Ontario",2174,-84.783337,48.000415
+"Hearst","Ontario",5043,-83.666583,49.700492
+"Marathon","Ontario",4627,-86.366651,48.750395
+"Sioux Lookout","Ontario",4570,-91.916648,50.262964
+"Red Lake","Ontario",1765,-93.833301,51.033692
+"Deer Lake","Ontario",3743,-94.066595,52.617033
+"Cat Lake","Ontario",277,-91.799989,51.717036
+"Cornwall","Ontario",48821,-74.73333,45.017057
+"Kingston","Ontario",114195,-76.483301,44.23372
+"Barrie","Ontario",182041,-79.700004,44.383762
+"Parry Sound","Ontario",7105,-80.033007,45.333704
+"Wiarton","Ontario",2182,-81.133301,44.733689
+"Cobalt","Ontario",1372,-79.683312,47.383709
+"Cochrane","Ontario",4441,-81.016564,49.067017
+"Nipigon","Ontario",1204,-88.249973,49.017046
+"Atikokan","Ontario",3625,-91.616589,48.750395
+"Rimouski","Québec",35584,-68.516681,48.433748
+"Saint-Georges","Québec",26149,-70.666653,46.117145
+"Victoriaville","Québec",41500,-71.966677,46.050405
+"Chevery","Québec",284,-59.609783,50.481323
+"Mistassini","Québec",2645,-73.866587,50.417063
+"Kangirsuk","Québec",549,-69.999097,60.024823
+"Shawinigan","Québec",49161,-72.733323,46.550374
+"Matagami","Québec",1966,-77.633282,49.750386
+"Mont-Laurier","Québec",11642,-75.500028,46.550374
+"Pembroke","Québec",15551,-77.116647,45.850262
+"Radisson","Québec",270,-77.616565,53.783628
+"Saint John","New Brunswick",87857,-66.076675,45.267042
+"Edmundston","New Brunswick",17894,-68.333282,47.379419
+"Shelburne","Nova Scotia",3167,-65.319357,43.765609
+"Antigonish","Nova Scotia",6739,-61.99819,45.626917
+"Windsor","Nova Scotia",3864,-64.12912,44.980599
+"Digby","Nova Scotia",3949,-65.760493,44.622585
+"Stephenville","Newfoundland and Labrador",7054,-58.566565,48.550407
+"Argentia","Newfoundland and Labrador",1063,-53.989997,47.300432
+"St. Anthony","Newfoundland and Labrador",224,-55.59995,51.383749
+"Channel-Port aux Basques","Newfoundland and Labrador",4220,-59.150044,47.567005
+"Buchans","Newfoundland and Labrador",685,-56.866591,48.817032
+"Trout River","Newfoundland and Labrador",452,-58.116644,49.483658
+"Churchill Falls","Newfoundland and Labrador",100,-63.980679,53.526409
+"Forteau","Newfoundland and Labrador",448,-56.949997,51.450385
+"Trepassey","Newfoundland and Labrador",398,-53.363291,46.736978
+"Brochet","Manitoba",278,-101.666596,57.883223
+"Lynn Lake","Manitoba",482,-101.049967,56.85003
+"Gillam","Manitoba",1281,-94.699967,56.349983
+"North Battleford","Saskatchewan",19440,-108.283349,52.766636
+"Prince Albert","Saskatchewan",34609,-105.74999,53.20002
+"Courtenay","British Columbia",32793,-124.999978,49.683336
+"Kelowna","British Columbia",125109,-119.483312,49.899989
+"Pangnirtung","Nunavut",1320,-65.750028,66.133313
+"Holman","Northwest Territories",500,-117.749981,70.733369
+"Dryden","Ontario",7862,-92.833336,49.78333
+"Attawapiskat","Ontario",1802,-82.433325,52.916627
+"Hamilton","Ontario",721053,-79.829996,43.249982
+"Windsor","Ontario",319246,-83.036853,42.315457
+"Trois-Rivières","Québec",119693,-72.549949,46.349973
+"Sept-Îles","Québec",25686,-66.360017,50.316088
+"Corner Brook","Newfoundland and Labrador",20791,-57.933348,48.949995
+"Norway House","Manitoba",6000,-97.83329,53.966588
+"Flin Flon","Manitoba",6393,-101.883301,54.766591
+"Dauphin","Manitoba",9077,-100.04995,51.150016
+"The Pas","Manitoba",6055,-101.233315,53.816623
+"Uranium City","Saskatchewan",89,-108.616585,59.566557
+"Moose Jaw","Saskatchewan",32166,-105.550002,50.399984
+"Jasper","Alberta",3907,-118.083371,52.883321
+"Medicine Hat","Alberta",63138,-110.683332,50.033314
+"Red Deer","Alberta",74857,-113.800041,52.26664
+"Banff","Alberta",7502,-115.571923,51.177999
+"Grand Prairie","Alberta",41462,-118.799994,55.166644
+"Smithers","British Columbia",6245,-127.16659,54.766591
+"Kamloops","British Columbia",68714,-120.333286,50.666661
+"Williams Lake","British Columbia",14168,-122.149997,52.11665
+"Prince George","British Columbia",65558,-122.766652,53.916669
+"Fort Nelson","British Columbia",6315,-122.532971,58.816706
+"Pond Inlet","Nunavut",1549,-78.000056,72.684981
+"Cape Dorset","Nunavut",1326,-76.538579,64.31252
+"Kimmirut","Nunavut",385,-69.883316,62.850026
+"Gjoa Haven","Nunavut",1109,-95.916662,68.63329
+"Grise Fiord","Nunavut",23,-82.949986,76.441651
+"Alert","Nunavut",125,-62.249984,82.483323
+"Ennadai","Nunavut",0,-100.883336,61.133283
+"Rankin Inlet","Nunavut",2472,-92.09532,62.816668
+"Fort Resolution","Northwest Territories",448,-113.682994,61.166588
+"Fort Simpson","Northwest Territories",283,-121.333276,61.849983
+"Inuvik","Northwest Territories",3022,-133.699989,68.349974
+"Tuktoyaktuk","Northwest Territories",929,-133.049201,69.454775
+"Watson Lake","Yukon",802,-128.80003,60.116626
+"Lansdowne House","Ontario",120,-87.883329,52.216644
+"Moosonee","Ontario",1725,-80.657981,51.280602
+"Sudbury","Ontario",157857,-80.966645,46.49999
+"Kenora","Ontario",10852,-94.466648,49.76669
+"Gaspé","Québec",3677,-64.493361,48.837315
+"Mingan","Québec",588,-64.017265,50.301759
+"Dolbeau","Québec",13337,-72.233328,48.86659
+"Val d'Or","Québec",20625,-77.766633,48.116635
+"Ivugivik","Québec",156,-77.899984,62.416641
+"Inukjuak","Québec",1597,-78.135991,58.470009
+"Chicoutimi","Québec",53940,-71.066706,48.433309
+"Moncton","New Brunswick",90635,-64.766678,46.083349
+"Fredericton","New Brunswick",52337,-66.633308,45.949998
+"Bathurst","New Brunswick",6111,-65.649983,47.599974
+"Yarmouth","Nova Scotia",7500,-66.112581,43.830795
+"Gander","Newfoundland and Labrador",3345,-54.549988,48.949995
+"Cartwright","Newfoundland and Labrador",505,-57.012141,53.701407
+"Rigolet","Newfoundland and Labrador",124,-58.447322,54.176601
+"Port Burwell","Newfoundland and Labrador",2762,-64.741098,60.266462
+"Thompson","Manitoba",13727,-97.866621,55.749942
+"Brandon","Manitoba",28418,-99.949982,49.833275
+"Fort Smith","Alberta",518,-111.883336,60.000019
+"Fort McMurray","Alberta",21863,-111.383315,56.733319
+"Peace River","Alberta",5340,-117.283291,56.233323
+"Fort St. John","British Columbia",18776,-120.833281,56.249989
+"Iqaluit","Nunavut",6124,-68.500192,63.750459
+"Cambridge Bay","Nunavut",1477,-105.033315,69.116956
+"Kugluktuk","Nunavut",1302,-115.12535,67.798663
+"Chesterfield Inlet","Nunavut",374,-90.700082,63.33829
+"Arviat","Nunavut",1868,-94.058607,61.108592
+"Taloyoak","Nunavut",774,-93.53332,69.533313
+"Igloolik","Nunavut",1612,-81.793592,69.256535
+"Dawson City","Yukon",1319,-139.416669,64.066644
+"Timmins","Ontario",34974,-81.333315,48.466588
+"North Bay","Ontario",50170,-79.449993,46.300002
+"Kuujjuarapik","Québec",1243,-77.765832,55.281495
+"Kuujjuaq","Québec",1273,-68.399996,58.100005
+"Sydney","Nova Scotia",37538,-60.179981,46.066115
+"Labrador City","Newfoundland and Labrador",10313,-66.915875,52.941431
+"Winnipeg","Manitoba",632063,-97.165992,49.882988
+"Churchill","Manitoba",1000,-94.165994,58.765985
+"Regina","Saskatchewan",176183,-104.61701,50.450033
+"Saskatoon","Saskatchewan",198958,-106.669985,52.170031
+"Calgary","Alberta",1110000,-114.081944,51.084938
+"Prince Rupert","British Columbia",14708,-130.329988,54.31667
+"Victoria","British Columbia",289625,-123.350001,48.433283
+"Arctic Bay","Nunavut",604,-85.166621,73.033306
+"Resolute","Nunavut",250,-94.900006,74.683334
+"Naujaat","Nunavut",1000,-86.282935,66.529467
+"Yellowknife","Northwest Territories",19234,-114.396981,62.442014
+"Fort Good Hope","Northwest Territories",597,-128.633322,66.266613
+"Whitehorse","Yukon",23276,-135.049984,60.716719
+"Ottawa","Ontario",1145000,-75.701961,45.418643
+"Fort Severn","Ontario",125,-87.649984,55.983339
+"Thunder Bay","Ontario",99334,-89.274975,48.44615
+"Québec","Québec",624177,-71.24561,46.839969
+"Halifax","Nova Scotia",359111,-63.600005,44.650025
+"St. John's","Newfoundland and Labrador",131469,-52.681007,47.584988
+"Nain","Newfoundland and Labrador",1151,-61.686045,56.547352
+"Charlottetown","Prince Edward Island",42402,-63.131325,46.249282
+"Edmonton","Alberta",1058000,-113.501928,53.551971
+"Montréal","Québec",3678000,-73.585243,45.501945
+"Vancouver","British Columbia",2313328,-123.12359,49.275362
+"Toronto","Ontario",5213000,-79.421967,43.701926

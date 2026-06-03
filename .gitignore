@@ -1,8 +1,6 @@
 /.quarto/
 *.html
 index_*
-data/
-barque/
 index_*
 test_files/*
 .claude
